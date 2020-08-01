@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="PinValue" class="form-control" type="text">
+                    <button id="PinGenerate" class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="everyValue" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div onclick="everyValue.value+='7'" class="button">7</div>
+                              <div onclick="everyValue.value+='8'"  class="button">8</div>
+                              <div onclick="everyValue.value+='9'"  class="button">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div onclick="everyValue.value+='4'"  class="button">4</div>
+                              <div onclick="everyValue.value+='5'"  class="button">5</div>
+                              <div onclick="everyValue.value+='6'"  class="button">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div onclick="everyValue.value+='1'"  class="button">1</div>
+                              <div onclick="everyValue.value+='2'"  class="button">2</div>
+                              <div onclick="everyValue.value+='3'"  class="button">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div id="OneNumber" class="button"><</div>
+                                <div onclick="everyValue.value+='0'"  class="button">0</div>
+                                <div id="AllValue" class="button">C</div>
+                            </div>
+                            <div>
+                                <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="Mismatch" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="match" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+    <!-- start javascript -->
+    <script>
+        // password Generator
+        const getPin = document.getElementById("PinGenerate");
+        const Pin = getPin.addEventListener("click",function(){
+            const Input = document.getElementById("PinValue").value;
+            const PIN = Math.floor(2000+Math.random()*1000);
+            const FinalPinGenerate = document.getElementById("PinValue").value = PIN;
+            PinAndNotification(FinalPinGenerate);
+            alert("Please Input right password")
+        })
+        // Pin check and Notification check here;
+        function PinAndNotification(FinalPinGenerate){
+            const enterButton = document.getElementById("submitBtn");
+            const Item = enterButton.addEventListener("click",function(){
+                const ValuE = document.getElementById("everyValue").value;
+                const ValuePin = parseInt(ValuE);
+                if( FinalPinGenerate ==ValuePin){
+                    const match = document.getElementById("match").style.display= "block";
+                    const Mismatch = document.getElementById("Mismatch").style.display = "none"
+                }
+                else{
+                    const Mismatch = document.getElementById("Mismatch").style.display="block";
+                    const match = document.getElementById("match").style.display="none"
+                }
+            })
+        }
+        // For Bonus Mark 
+        // clear All Number with C button 
+            const ClearAllValue = document.getElementById("AllValue");
+            const clearValue = ClearAllValue.addEventListener("click",function(){
+                document.getElementById("everyValue").value="";
+            })
+        // One Number Clear with < button 
+            const ClearOne = document.getElementById("OneNumber");
+            const OneClear = ClearOne.addEventListener("click", function(){
+                const clear = document.getElementById("everyValue").value;
+                const ClearONE = clear.slice( 0, -1 );
+                document.getElementById("everyValue").value = ClearONE;
+            })
+            
+    </script>
+</body>
+</html>
